@@ -61,6 +61,10 @@ void vector_generate::calculate_all_vectors(std::vector<int> max_vector, int max
 		int value = max_vector[i];
 		int decrement = 1;
 
+		// decrement the value at the specific index until it is 0
+		// add the copied vector to the list of all vectors
+		// then, recurse on the copied vector if the value is not the last value, 
+		// and if the value at the last index is greater than 0
 		while (value > 0)
 		{
 			std::vector<int> copy_vector(max_vector);
