@@ -8,7 +8,8 @@ vector_generate::vector_generate(int* _kv_attributes, int _num_attributes, bool 
 	kv_attributes = _kv_attributes;
 	num_attributes = _num_attributes;
 	std::vector<int> max_vector(num_attributes);
-
+	
+	// construct maximum vector
 	for (int i = 0; i < num_attributes; i++)
 	{
 		max_vector[i] = kv_attributes[i] - 1;
@@ -23,6 +24,7 @@ vector_generate::vector_generate(int* _kv_attributes, int _num_attributes, bool 
 
 	std::cout << "\n Created " << all_vectors.size() << " vectors." << std::endl;
 
+	// calculate the maximum Hamming norm
 	int max_hamming_norm = 0;
 
 	for (int i = 0; i < num_attributes; i++)
@@ -40,10 +42,7 @@ vector_generate::vector_generate(int* _kv_attributes, int _num_attributes, bool 
 
 	std::cout << "\n Program took " << duration.count() << " microseconds to run." << std::endl;
 
-	if (print)
-	{
-		print_sorted_vectors(sorted_vectors);
-	}
+	if (print) print_sorted_vectors(sorted_vectors);
 }
 
 // destructor
