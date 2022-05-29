@@ -1,4 +1,4 @@
-#include "vector_sort.h"
+#include "vector_generate.h"
 
 int main()
 {
@@ -21,7 +21,7 @@ int main()
 
 	for (int i = 0; i < num_attributes; i++)
 	{
-		std::cout << "\n Enter the k-value for attribute " << i;
+		std::cout << "\n Enter the k-value for attribute " << i << ": ";
 
 		if (!(std::cin >> kv_attributes[i]))
 		{
@@ -34,27 +34,21 @@ int main()
 		num_vectors *= kv_attributes[i];
 	}
 
-	// list of all vectors
-	std::vector<std::vector<int>> all_vectors(num_vectors);
-	all_vectors.push_back(max_vector);
+	char answer = 'n';
+	std::cout << "\n Enter whether to print the vectors or not [y/n]: ";
 
-	// calculate all vectors
-	calculate_all_vectors(max_vector, max_vector.size() - 1, all_vectors);
-
-	std::cout << "\n Created " << all_vectors.size() << " vectors." << std::endl;
-
-	int max_hamming_norm = 0;
-
-	for (int i = 0; i < num_attributes; i++)
+	if (!(std::cin >> answer))
 	{
-		max_hamming_norm += kv_attributes[i] - 1;
+		std::cout << "\n Enter a character next time." << std::endl;
+
+		return 0;
 	}
 
-	// sort vectors
-	std::vector<std::vector<std::vector<int>>> sorted_vectors(max_hamming_norm);
-	group_by_hamming_norm(sorted_vectors, all_vectors);
-	sort_vectors_in_hamming_norm(sorted_vectors);
-	print_sorted_vectors(sorted_vectors);
+	int print = false;
+
+	if (answer == 'y'|| answer == 'Y') print = true;
+
+	vector_generate generate(kv_attributes, num_attributes, print);
 
 	return 0;
 }
