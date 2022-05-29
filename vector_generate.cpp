@@ -190,13 +190,21 @@ void vector_generate::print_vectors(std::vector<std::vector<int>>& all_vectors)
 {
 	for (std::vector vector : all_vectors)
 	{
-		std::cout << " ";
+		std::cout << "\tVector: ";
 
 		for (int i : vector)
 		{
 			std::cout << i;
 		}
 
-		std::cout << std::endl;
+		// calculate decimal value
+		int vector_value = 0;
+
+		for (int i = 0; i < num_attributes; i++)
+		{
+			vector_value += vector[i] * std::pow(kv_attributes[i], num_attributes - i - 1);
+		}
+
+		std::cout << "\tValue: " << vector_value << std::endl;
 	}
 }
