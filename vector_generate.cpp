@@ -160,7 +160,7 @@ void vector_generate::swap(std::vector<std::vector<int>>& unsorted_vectors, int 
 	unsorted_vectors[root_index] = temp;
 }
 
-// overloaded operator for vector comparison within the same Hamming norm
+// vector comparison provided that the k-values are the same
 // return true if left vector is smaller than right vector
 bool vector_generate::compare(std::vector<int> left_vector, std::vector<int> right_vector)
 {
