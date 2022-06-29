@@ -1,8 +1,6 @@
 #include "vector_generate.h"
 #include <chrono>
 
-// mixed-base value for the value of kv_attributes
-
 // constructor
 vector_generate::vector_generate(int* _kv_attributes, int _num_attributes, bool print)
 {
