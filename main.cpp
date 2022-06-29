@@ -46,7 +46,7 @@ int main()
 
 	int print = false;
 
-	if (answer == 'y'|| answer == 'Y') print = true;
+	if (answer == 'y' || answer == 'Y') print = true;
 
 	vector_generate generate(kv_attributes, num_attributes, print);
 
