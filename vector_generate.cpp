@@ -45,8 +45,9 @@ vector_generate::~vector_generate()
 	delete[] kv_attributes;
 }
 
-// calculate all vectors below the given max_vector
 /*
+ *	calculate all vectors below the given max_vector
+ 
 	ALGORITHM:
 	This algorithm calculates all possible vectors for a given MAXIMUM input vector. Therefore, if the input vectors
 	have k-values of k = (3, 5, 2), the maximum input vector will be (2, 4, 1).
@@ -55,7 +56,7 @@ vector_generate::~vector_generate()
 */
 void vector_generate::calculate_all_vectors(std::vector<int> max_vector, int max_hamming_norm, int max_vector_index, std::vector<std::multimap<int, std::vector<int>, std::greater<int>>>& sorted_vectors)
 {
-	int last_index = (int)max_vector.size() - 1;
+	//int last_index = (int)max_vector.size() - 1;
 
 	// iterate over every index starting from the given index
 	for (int i = max_vector_index; i >= 0; i--)
@@ -75,34 +76,35 @@ void vector_generate::calculate_all_vectors(std::vector<int> max_vector, int max
 			value = copy_vector[i];
 			decrement++;
 
+			// insert copy vector into sorted_vectors by looping over possible vectors with the same mixed-base value
+			// then, insert based on what vector has higher order elements or greater higher order elements
 			int key = calc_mb_value(copy_vector);
-			auto it1 = sorted_vectors[hamming_norm].equal_range(key);
+			auto it1 = sorted_vectors[hamming_norm].equal_range(key); // pair of two iterators; first points at before the range of the key; second points to after
 			bool higher_order = false;
 
 			// iterate over every vector with the same key
-			for (auto it2 = it1.first; it2 != it1.second; it2++)
+			for (auto it2 = it1.first; it2 != it1.second && !higher_order; it2++)
 			{
-				// iterate over elements of the copy vector and the vector with the same key
-				// if copy vector has greater elements, it is placed before the other vector
+				// iterate over elements of the copy_vector and a vector with the same key
+				// if copy_vector has greater elements, it is placed before the other vector
 				for (int i = 0; i < num_attributes; i++)
 				{
 					if (it2->second[i] < copy_vector[i])
 					{
 						higher_order = true;
-						sorted_vectors[hamming_norm].emplace_hint(--it2, std::pair<int, std::vector<int>>(key, copy_vector));
+						sorted_vectors[hamming_norm].emplace_hint(it2, std::pair<int, std::vector<int>>(key, copy_vector)); // inserts before the vector that it2 points to
 						break;
 					}
 					else if (it2->second[i] > copy_vector[i]) break;
 				}
-
-				if (higher_order) break;
 			}
 			
+			// insert at the end of the vectors with the same key (mixed-base value) if it is smaller
 			if (!higher_order) sorted_vectors[hamming_norm].emplace_hint(it1.second, key, copy_vector);
 
-			if (i > 0 && copy_vector[last_index] >= 0)
+			if (i > 0)
 			{
-				calculate_all_vectors(copy_vector, hamming_norm, i - 1, sorted_vectors);
+				calculate_all_vectors(copy_vector, hamming_norm, i - 1, sorted_vectors); // 
 			}
 		}
 	}
