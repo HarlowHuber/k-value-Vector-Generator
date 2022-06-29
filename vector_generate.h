@@ -13,16 +13,16 @@ private:
 	int num_attributes;
 
 	// calculate all vectors grouped by Hamming norm and sorted
-	void calculate_all_vectors(std::vector<int> max_vector, int max_hamming_norm, int max_vector_index, std::vector<std::map<int, std::vector<int>, std::greater<int>>>& sorted_vectors);
+	void calculate_all_vectors(std::vector<int> max_vector, int max_hamming_norm, int max_vector_index, std::vector<std::multimap<int, std::vector<int>, std::greater<int>>>& sorted_vectors);
 
 	// calculate mixed base value of vector
 	int calc_mb_value(std::vector<int> vector);
 
 	// print a list of vectors grouped by Hamming norm
-	void print_sorted_vectors(std::vector<std::map<int, std::vector<int>, std::greater<int>>> sorted_vectors);
+	void print_sorted_vectors(std::vector<std::multimap<int, std::vector<int>, std::greater<int>>> sorted_vectors);
 
 	// print a list of vectors
-	void print_vectors(std::map<int, std::vector<int>, std::greater<int>>& all_vectors);
+	void print_vectors(std::multimap<int, std::vector<int>, std::greater<int>>& all_vectors);
 
 public:
 	// constructor
