@@ -44,9 +44,6 @@ vector_generate::~vector_generate()
 }
 
 /*
- *	calculate all vectors below the given max_vector
- 
-	ALGORITHM:
 	This algorithm calculates all possible vectors for a given MAXIMUM input vector. Therefore, if the input vectors
 	have k-values of k = (3, 5, 2), the maximum input vector will be (2, 4, 1).
 	The number of vectors that are generated will be the product of all k-values multiplied against each other.
@@ -54,8 +51,6 @@ vector_generate::~vector_generate()
 */
 void vector_generate::calculate_all_vectors(std::vector<int> max_vector, int max_hamming_norm, int max_vector_index, std::vector<std::multimap<int, std::vector<int>, std::greater<int>>>& sorted_vectors)
 {
-	//int last_index = (int)max_vector.size() - 1;
-
 	// iterate over every index starting from the given index
 	for (int i = max_vector_index; i >= 0; i--)
 	{
